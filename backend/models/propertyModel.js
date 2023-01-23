@@ -30,8 +30,8 @@ const propertySchema = mongoose.Schema(
             type: Number,
             required: [true, 'Please add number of Bathrooms in property']
         },
-        Balcony:{
-            type: Number,
+        property_size:{
+            type: String,
             required: [true, 'Please add number of Balcony in property']
         },
         Three_link:{
@@ -41,9 +41,12 @@ const propertySchema = mongoose.Schema(
             type: Number,
             required:[true,'please add price of the property']
         },
-        // photos:{
-        //     type: Array
-        // }
+        photos:{
+            type: [String]
+        },
+        property_desc:{
+            type: String
+        }
 
     },{
         timestamps: true

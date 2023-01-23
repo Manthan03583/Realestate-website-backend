@@ -5,7 +5,7 @@ const {protect} = require('../middleware/authMiddleware')
 const upload = require('../middleware/uploads')
 
 router.route('/all-properties').get(getProperties)
-router.route('/').get(protect, getPropertiesOfUser).post(protect, upload.array('photos[]', 100), setProperty)
+router.route('/').get(protect, getPropertiesOfUser).post(protect, upload.array('photos', 100), setProperty)
 
 router.route('/:id').get(getProperty).put(protect, updateProperty).delete(protect, deleteProperty)
 

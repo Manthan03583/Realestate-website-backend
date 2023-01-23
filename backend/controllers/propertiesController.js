@@ -1,6 +1,7 @@
 const asyncHandler = require('express-async-handler')
 const Property = require('../models/propertyModel')
 const User = require('../models/userModel')
+const path = require('path')
 
 // @desc    Get All Properties
 // @route   GET /api/properties
@@ -36,27 +37,26 @@ const getPropertiesOfUser = asyncHandler(async(req,res) =>{
 // @route   POST /api/properties
 //@access   Private
 const setProperty = asyncHandler(async(req,res) =>{
-    // console.log(req.body)
-
     if(!req.body.Property_type || !req.body.Location){
-        // res.status(400).json({message: 'Please add a text field'})
         res.status(400)
         throw new Error('Please add property type or location')
     }
+    if(!req.files){
+        res.status(400)
+        throw new Error('Please add at least one image')
+    }
 
-    // function setPhotos(){
-    //     const images=[]
-    //     if(Array.isArray(req.files.path)){
-    //         for(let i = 0; i< req.files.path.length; i++){
-    //             images.push(req.files.path[i])
-    //         }
-    //     }
-    //     else{
-    //         images.push(req.files.path)
-    //     }
-    //     return images
-    // }
+    var setPath = (file) =>{
+        var site = file.path;
+        if (path.sep === '\\') {
+            site = site.split(path.sep).join('/');
+        }
+        site = 'https://the-home-backend.onrender.com/' + site;
+        
+        return site;
+    }
 
+    const photos = req.files.map(setPath);
     const property = await Property.create({
         Property_type: req.body.Property_type,
         Location: req.body.Location,
@@ -64,21 +64,18 @@ const setProperty = asyncHandler(async(req,res) =>{
         name_of_property: req.body.name_of_property,
         Bedrooms: req.body.Bedrooms,
         Bathrooms: req.body.Bathrooms,
-        Balcony: req.body.Balcony,
+        property_size: req.body.property_size,
         Three_link: req.body.Three_link,
         price: req.body.price,
-        // photos: setPhotos(),
+        photos: photos,
+        property_desc:req.body.property_desc,
         user: req.user.id
     })
 
-    // if(req.file){
-    //     property.photos = req.file.path
-    // }
-
-    // res.status(200).json({ message: 'Set Property' })
     res.status(200).json(property)
 
 })
+
 
 // @desc    Update Property
 // @route   PUT /api/properties/:id
