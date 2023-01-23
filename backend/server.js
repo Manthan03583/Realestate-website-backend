@@ -10,8 +10,9 @@ const connectDB = require('./config/db')
 
 connectDB()
 const app = express()
+var cors = require('cors')
 
-
+app.use(cors())
 app.use(express.json())
 app.use(express.urlencoded({ extended: false }))
 app.use('/uplaods',express.static('uploads'))
