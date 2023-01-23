@@ -1,4 +1,5 @@
 const express = require('express')
+const path = require('path')
 const colors = require('colors')
 const dotenv = require('dotenv').config()
 const port = process.env.port || 8000
@@ -15,10 +16,17 @@ var cors = require('cors')
 app.use(cors())
 app.use(express.json())
 app.use(express.urlencoded({ extended: false }))
-app.use('/uplaods',express.static('uploads'))
+
+app.use((req, res, next) =>{
+    res.header("Content-Security-Policy", "default-src 'none'; img-src 'self' data:");
+    next();
+  });
+app.use('/backend/uploads',express.static(path.join(__dirname, 'uploads').split('\\').join('/')))
+
 
 app.use('/api/properties', propertiesRouter)
 app.use('/api/users', userRouter)
+
 
 app.use(errorHandler)
 

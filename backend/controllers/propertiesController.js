@@ -2,6 +2,7 @@ const asyncHandler = require('express-async-handler')
 const Property = require('../models/propertyModel')
 const User = require('../models/userModel')
 const path = require('path')
+const express = require('express')
 
 // @desc    Get All Properties
 // @route   GET /api/properties
@@ -142,6 +143,7 @@ const deleteProperty = asyncHandler(async(req,res) =>{
     // res.status(200).json({ message: `Delete Property ${req.params.id}`})
     res.status(200).json({id: req.params.id})
 })
+
 
 module.exports = {
     getProperties,
