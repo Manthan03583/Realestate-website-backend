@@ -10,7 +10,7 @@ const express = require('express')
 const getProperties = asyncHandler(async(req,res) =>{
 
     const properties =  await Property.find()
-
+    
     // res.status(200).json({ message: 'Get Properties' })
     res.status(200).json(properties)
 })

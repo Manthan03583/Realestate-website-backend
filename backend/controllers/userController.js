@@ -93,8 +93,14 @@ const generateToken = (id) => {
     })
 }
 
+const signoutUser = asyncHandler(async(req,res)=>{
+    res.clearCookie('jwt');
+    res.send({message: 'Signout successfully'})
+})
+
 module.exports = {
     registerUser,
     loginUser,
-    getMe
+    getMe,
+    signoutUser
 }
