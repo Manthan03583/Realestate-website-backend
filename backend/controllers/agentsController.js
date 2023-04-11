@@ -8,7 +8,7 @@ const Agent = require('../models/agentsModel.js')
 //@access   Public
 const registeragent = asyncHandler(async(req,res) =>{
 
-    const {name, email, password, address} = req.body
+    const {name, email, password, address, review} = req.body
 
     if(!name || !email || !password ){
         res.status(400)
@@ -45,6 +45,7 @@ const registeragent = asyncHandler(async(req,res) =>{
         email,
         password: hashedPassword,
         profilePic,
+        review,
         address
     })
 
@@ -55,6 +56,7 @@ const registeragent = asyncHandler(async(req,res) =>{
             email: agent.email,
             token: generateToken(agent._id),
             profilePic: agent.profilePic,
+            review: agent.review,
             address: agent.address
         })
     }else{
@@ -100,7 +102,8 @@ const getagent = asyncHandler(async(req,res) =>{
         name,
         email,
         profilePic,
-        review
+        review,
+
     })
 })
 
@@ -118,13 +121,13 @@ const signoutagent = asyncHandler(async(req,res)=>{
 
 const agentList = asyncHandler(async(req,res) =>{
 
-    const agents =  await Agent.find()
+    const agents =  await Agent.find({}, '-password -email')
     if(agents){
         res.status(200).json(agents)
     }
     else{
         res.status(404)
-
+        throw new Error('Error finding agents')
     }
     
 })
