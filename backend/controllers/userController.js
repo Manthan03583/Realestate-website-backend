@@ -1,7 +1,7 @@
 const jwt = require('jsonwebtoken')
 const bcrypt = require('bcryptjs')
 const asyncHandler = require('express-async-handler')
-const User = require('../models/userModel')
+const User = require('../models/userModel.js')
 
 // @desc    Register new user
 // @route   POST /api/users
@@ -27,11 +27,24 @@ const registerUser = asyncHandler(async(req,res) =>{
     const salt = await bcrypt.genSalt(10)
     const hashedPassword = await bcrypt.hash(password, salt)
 
+    var setPath = (file) =>{
+        var site = file.path;
+        if (path.sep === '\\') {
+            site = site.split(path.sep).join('/');
+        }
+        site = process.env.SITE_NAME + site;
+        
+        return site;
+    }
+
+    //set profile pic
+    const profilePic = req.files.map(setPath);
     //create user
     const user = await User.create({
         name,
         email,
-        password: hashedPassword
+        password: hashedPassword,
+        profilePic
     })
 
     if(user){
@@ -39,7 +52,8 @@ const registerUser = asyncHandler(async(req,res) =>{
             _id: user.id,
             name: user.name,
             email: user.email,
-            token: generateToken(user._id)
+            token: generateToken(user._id),
+            profilePic: user.profilePic
         })
     }else{
         res.status(404)
@@ -77,12 +91,13 @@ const loginUser = asyncHandler(async(req,res) =>{
 // @route   GET /api/users/me
 //@access   private
 const getMe = asyncHandler(async(req,res) =>{
-    const { _id, name, email} = await User.findById(req.user.id)
+    const { _id, name, email, profilePic} = await User.findById(req.user.id)
 
     res.status(200).json({
         id:_id,
         name,
-        email
+        email,
+        profilePic
     })
 })
 

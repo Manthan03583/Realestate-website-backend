@@ -1,6 +1,6 @@
 const mongoose = require('mongoose')
 
-const userSchema = mongoose.Schema({
+const agentSchema = mongoose.Schema({
         name:{
             type: String,
             required: [true, 'Please add a name']
@@ -16,6 +16,13 @@ const userSchema = mongoose.Schema({
         },
         profilePic:{
             type: String
+        },
+        review:{
+            type: Number,
+            max: 5            
+        },
+        address:{
+            type: String
         }
     },
     {
@@ -23,4 +30,4 @@ const userSchema = mongoose.Schema({
     }
 )
 
-module.exports = mongoose.model('User',userSchema)
+module.exports = mongoose.model('agent',agentSchema)

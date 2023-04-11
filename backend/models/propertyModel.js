@@ -2,10 +2,10 @@ const mongoose = require('mongoose')
 
 const propertySchema = mongoose.Schema(
     {
-        user:{
+        agent:{
             type: mongoose.Schema.Types.ObjectId,
             required: true,
-            ref: 'User',
+            ref: 'agent',
         },
         Property_type:{
             type : String,

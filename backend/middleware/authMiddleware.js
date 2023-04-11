@@ -1,6 +1,7 @@
 const jwt = require('jsonwebtoken')
 const asycnHandler = require('express-async-handler')
-const User = require('../models/userModel')
+const User = require('../models/userModel.js')
+const Agent = require('../models/agentsModel.js')
 
 const protect = asycnHandler(async(req, res, next)=> {
     let token
@@ -16,6 +17,9 @@ const protect = asycnHandler(async(req, res, next)=> {
             //Get user from the token
             req.user = await User.findById(decoded.id).select('-password')
 
+            req.agent = await Agent.findById(decoded.id).select('-password')
+
+
             next()
         }catch (error){
             console.log(error)
@@ -30,4 +34,4 @@ const protect = asycnHandler(async(req, res, next)=> {
     }
 })
 
-module.exports = {protect}
+module.exports = protect

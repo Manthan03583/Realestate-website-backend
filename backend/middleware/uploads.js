@@ -1,9 +1,9 @@
 const path = require('path')
 const multer = require('multer')
 
-var storage = multer.diskStorage({
+var PropertyImageStorage = multer.diskStorage({
     destination: (req, file, cb) =>{
-        cb(null, './backend/uploads/')
+        cb(null, './backend/uploads/propertyImages/')
     },
     filename: (req, file, cb) =>{
         let ext = path.extname(file.originalname)
@@ -12,8 +12,8 @@ var storage = multer.diskStorage({
     
 });
 
-var upload = multer({
-    storage: storage,
+var uploadPropertyImages = multer({
+    storage: PropertyImageStorage,
     fileFilter: (req, file, callback) =>{
         if(
             file.mimetype == "image/png" ||
@@ -30,4 +30,68 @@ var upload = multer({
     }
 });
 
-module.exports = upload;
+var AgentsImageStorage = multer.diskStorage({
+    destination: (req, file, cb) =>{
+        cb(null, './backend/uploads/agentImages/')
+    },
+    filename: (req, file, cb) =>{
+        let ext = path.extname(file.originalname)
+        cb(null, Date.now() + ext)
+    }
+    
+});
+
+var uploadAgentsImage = multer({
+    storage: AgentsImageStorage,
+    fileFilter: (req, file, callback) =>{
+        if(
+            file.mimetype == "image/png" ||
+            file.mimetype == "image/jpg" ||
+            file.mimetype == "image/jpeg"
+        ){
+            callback(null, true)
+        }else{
+            callback(new Error('only jpg, jpeg & png files are supported'), false)
+        }
+    },
+    limits: {
+        fileSize: 1024 * 1024 * 2
+    }
+});
+
+var UsersImageStorage = multer.diskStorage({
+    destination: (req, file, cb) =>{
+        cb(null, './backend/uploads/userImages/')
+    },
+    filename: (req, file, cb) =>{
+        let ext = path.extname(file.originalname)
+        cb(null, Date.now() + ext)
+    }
+    
+});
+
+var uploadUsersImage = multer({
+    storage: UsersImageStorage,
+    fileFilter: (req, file, callback) =>{
+        if(
+            file.mimetype == "image/png" ||
+            file.mimetype == "image/jpg" ||
+            file.mimetype == "image/jpeg"
+        ){
+            callback(null, true)
+        }else{
+            callback(new Error('only jpg, jpeg & png files are supported'), false)
+        }
+    },
+    limits: {
+        fileSize: 1024 * 1024 * 2
+    }
+});
+
+
+
+module.exports = {
+    uploadPropertyImages,
+    uploadAgentsImage,
+    uploadUsersImage
+};

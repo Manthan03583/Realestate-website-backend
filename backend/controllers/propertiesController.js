@@ -1,6 +1,6 @@
 const asyncHandler = require('express-async-handler')
-const Property = require('../models/propertyModel')
-const User = require('../models/userModel')
+const Property = require('../models/propertyModel.js')
+const Agent = require('../models/agentsModel.js')
 const path = require('path')
 const express = require('express')
 
@@ -18,6 +18,10 @@ const getProperties = asyncHandler(async(req,res) =>{
 const getProperty = asyncHandler(async(req, res)=>{
 
     const property = await Property.findById(req.params.id)
+    if(!property){
+        res.status(400)
+        throw new Error('Property not found')
+    }
 
     res.status(200).json(property)
 
@@ -26,9 +30,9 @@ const getProperty = asyncHandler(async(req, res)=>{
 // @desc    Get Properties
 // @route   GET /api/properties
 //@access   Private
-const getPropertiesOfUser = asyncHandler(async(req,res) =>{
+const getPropertiesOfAgent = asyncHandler(async(req,res) =>{
 
-    const properties = await Property.find({user: req.user.id})
+    const properties = await Property.find({agent: req.user.id})
 
     // res.status(200).json({ message: 'Get Properties' })
     res.status(200).json(properties)
@@ -52,7 +56,7 @@ const setProperty = asyncHandler(async(req,res) =>{
         if (path.sep === '\\') {
             site = site.split(path.sep).join('/');
         }
-        site = 'https://the-home-backend.onrender.com/' + site;
+        site = process.env.SITE_NAME + site;
         
         return site;
     }
@@ -70,7 +74,7 @@ const setProperty = asyncHandler(async(req,res) =>{
         price: req.body.price,
         photos: photos,
         property_desc:req.body.property_desc,
-        user: req.user.id
+        agent: req.user.id
     })
 
     res.status(200).json(property)
@@ -89,18 +93,18 @@ const updateProperty = asyncHandler(async(req,res) =>{
         throw new Error('Property not Found')
     }
 
-    const user = await User.findById(req.user.id)
+    const agent = await Agent.findById(req.user.id)
     
-    //check for user
-    if(!user){
+    //check for agent
+    if(!agent){
         res.status(401)
-        throw new Error('User not found')
+        throw new Error('Agent not found')
     }
 
     //Make sure th elogged user matches the property user
-    if(property.user.toString() !== user.id){
+    if(property.agent.toString() !== agent.id){
         res.status(401)
-        throw new Error('User not authorized')
+        throw new Error('Agent not authorized')
     }
 
     const updatedProperty = await Property.findByIdAndUpdate(req.params.id, 
@@ -124,18 +128,18 @@ const deleteProperty = asyncHandler(async(req,res) =>{
     }
 
 
-    const user = await User.findById(req.user.id)
+    const agent = await Agent.findById(req.user.id)
     
     //check for user
-    if(!user){
+    if(!agent){
         res.status(401)
-        throw new Error('User not found')
+        throw new Error('Agent not found')
     }
 
     //Make sure th elogged user matches the property user
-    if(property.user.toString() !== user.id){
+    if(property.agent.toString() !== agent.id){
         res.status(401)
-        throw new Error('User not authorized')
+        throw new Error('Agent not authorized')
     }
 
     await property.remove()
@@ -148,7 +152,7 @@ const deleteProperty = asyncHandler(async(req,res) =>{
 module.exports = {
     getProperties,
     getProperty,
-    getPropertiesOfUser,
+    getPropertiesOfAgent,
     setProperty,
     updateProperty,
     deleteProperty
