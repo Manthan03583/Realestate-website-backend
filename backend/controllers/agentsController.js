@@ -2,6 +2,7 @@ const jwt = require('jsonwebtoken')
 const bcrypt = require('bcryptjs')
 const asyncHandler = require('express-async-handler')
 const Agent = require('../models/agentsModel.js')
+const path = require('path')
 
 // @desc    Register new Agent
 // @route   POST /api/agents
@@ -27,18 +28,16 @@ const registeragent = asyncHandler(async(req,res) =>{
     const salt = await bcrypt.genSalt(10)
     const hashedPassword = await bcrypt.hash(password, salt)
 
-    var setPath = (file) =>{
-        var site = file.path;
-        if (path.sep === '\\') {
-            site = site.split(path.sep).join('/');
-        }
-        site = process.env.SITE_NAME + site;
-        
-        return site;
+    var site = req.file.path;
+
+    if (path.sep === '\\') {
+        site = site.split(path.sep).join('/');
     }
 
+    site = process.env.SITE_NAME + site;
+
     //set profile pic
-    const profilePic = req.files && req.files.length > 0 ? req.files.map(setPath):null;
+    const profilePic = req.file ? site : null;
     //create agent
     const agent = await Agent.create({
         name,
@@ -54,10 +53,10 @@ const registeragent = asyncHandler(async(req,res) =>{
             _id: agent.id,
             name: agent.name,
             email: agent.email,
-            token: generateToken(agent._id),
             profilePic: agent.profilePic,
             review: agent.review,
-            address: agent.address
+            address: agent.address,
+            token: generateToken(agent._id)
         })
     }else{
         res.status(404)

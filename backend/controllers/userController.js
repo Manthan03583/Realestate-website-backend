@@ -27,18 +27,16 @@ const registerUser = asyncHandler(async(req,res) =>{
     const salt = await bcrypt.genSalt(10)
     const hashedPassword = await bcrypt.hash(password, salt)
 
-    var setPath = (file) =>{
-        var site = file.path;
-        if (path.sep === '\\') {
-            site = site.split(path.sep).join('/');
-        }
-        site = process.env.SITE_NAME + site;
-        
-        return site;
+    var site = req.file.path;
+
+    if (path.sep === '\\') {
+        site = site.split(path.sep).join('/');
     }
 
+    site = process.env.SITE_NAME + site;
+
     //set profile pic
-    const profilePic = req.files.map(setPath);
+    const profilePic = req.file ? site : null;
     //create user
     const user = await User.create({
         name,
