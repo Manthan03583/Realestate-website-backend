@@ -7,6 +7,6 @@ const {uploadUsersImage} = require('../middleware/uploads.js')
 router.route('/register').post(uploadUsersImage.single("profilePic"),registerUser)
 router.post('/login',loginUser)
 router.get('/me',protect,getMe)
-router.get('/signout',signoutUser)
+router.get('/signout',protect,signoutUser)
 
 module.exports = router

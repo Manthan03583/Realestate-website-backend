@@ -32,7 +32,7 @@ const getProperty = asyncHandler(async(req, res)=>{
 //@access   Private
 const getPropertiesOfAgent = asyncHandler(async(req,res) =>{
 
-    const properties = await Property.find({agent: req.user.id})
+    const properties = await Property.find({agent: req.decodedAgent.id})
 
     // res.status(200).json({ message: 'Get Properties' })
     res.status(200).json(properties)
@@ -74,7 +74,7 @@ const setProperty = asyncHandler(async(req,res) =>{
         price: req.body.price,
         photos: photos,
         property_desc:req.body.property_desc,
-        agent: req.user.id
+        agent: req.decodedAgent.id
     })
 
     res.status(200).json(property)
@@ -93,7 +93,7 @@ const updateProperty = asyncHandler(async(req,res) =>{
         throw new Error('Property not Found')
     }
 
-    const agent = await Agent.findById(req.user.id)
+    const agent = await Agent.findById(req.decodedAgent.id)
     
     //check for agent
     if(!agent){
@@ -128,7 +128,7 @@ const deleteProperty = asyncHandler(async(req,res) =>{
     }
 
 
-    const agent = await Agent.findById(req.user.id)
+    const agent = await Agent.findById(req.decodedAgent.id)
     
     //check for user
     if(!agent){

@@ -95,7 +95,7 @@ const loginagent = asyncHandler(async(req,res) =>{
 // @route   GET /api/agents/me
 //@access   private
 const getagent = asyncHandler(async(req,res) =>{
-    const { _id, name, email, profilePic} = await Agent.findById(req.agent.id)
+    const { _id, name, email, profilePic, review, address} = await Agent.findById(req.decodedAgent.id)
 
     res.status(200).json({
         id:_id,
@@ -103,7 +103,7 @@ const getagent = asyncHandler(async(req,res) =>{
         email,
         profilePic,
         review,
-
+        address
     })
 })
 

@@ -17,7 +17,8 @@ const protect = asycnHandler(async(req, res, next)=> {
             //Get user from the token
             req.user = await User.findById(decoded.id).select('-password')
 
-            req.agent = await Agent.findById(decoded.id).select('-password')
+            //Get agent from token
+            req.decodedAgent = await Agent.findById(decoded.id).select('-password')
 
 
             next()
