@@ -15,7 +15,7 @@ const agentSchema = mongoose.Schema({
             required: [true, 'Please add a password']
         },
         profilePic:{
-            type: String
+            type:String
         },
         review:{
             type: Number,

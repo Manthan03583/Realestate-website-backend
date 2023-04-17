@@ -6,8 +6,8 @@ var PropertyImageStorage = multer.diskStorage({
         cb(null, './backend/uploads/propertyImages/')
     },
     filename: (req, file, cb) =>{
-        let ext = path.extname(file.originalname)
-        cb(null, Date.now() + ext)
+        let ext = `${Date.now()}-${Math.floor(Math.random() * 10000)}-${file.originalname}`
+        cb(null, ext)
     }
     
 });
@@ -35,8 +35,8 @@ var AgentsImageStorage = multer.diskStorage({
         cb(null, './backend/uploads/agentImages/')
     },
     filename: (req, file, cb) =>{
-        let ext = path.extname(file.originalname)
-        cb(null, Date.now() + ext)
+        let ext = `${Date.now()}-${Math.floor(Math.random() * 10000)}-${file.originalname}`;
+        cb(null,ext)
     }
     
 });
@@ -64,8 +64,8 @@ var UsersImageStorage = multer.diskStorage({
         cb(null, './backend/uploads/userImages/')
     },
     filename: (req, file, cb) =>{
-        let ext = path.extname(file.originalname)
-        cb(null, Date.now() + ext)
+        let ext = `${Date.now()}-${Math.floor(Math.random() * 10000)}-${file.originalname}`
+        cb(null, ext)
     }
     
 });

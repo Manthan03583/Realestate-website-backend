@@ -1,5 +1,9 @@
 const mongoose = require('mongoose')
-const connectionParams = { useNewUrlParser: true }
+const connectionParams = {
+	useUnifiedTopology: true,
+	useNewUrlParser: true,
+	useCreateIndex: true,
+}
 
 const connectDB = async () =>{
     try{

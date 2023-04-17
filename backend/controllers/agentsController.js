@@ -17,11 +17,12 @@ const registeragent = asyncHandler(async(req,res) =>{
     }
 
     //check if agent exists
-    const agentExists = await Agent.findOne({email})
+    
+    const agentExists = await Agent.findOne({ email })
 
     if(agentExists){
         res.status(400)
-        throw new Error('agent already exists') 
+        throw new Error('agent already exists')
     }
 
     //Hash Password
@@ -30,14 +31,17 @@ const registeragent = asyncHandler(async(req,res) =>{
 
     var site = req.file.path;
 
-    if (path.sep === '\\') {
-        site = site.split(path.sep).join('/');
+    if(site){   
+        if (path.sep === '\\') {
+            site = site.split(path.sep).join('/');
+        }
+    
+        site = process.env.SITE_NAME + site;
     }
-
-    site = process.env.SITE_NAME + site;
 
     //set profile pic
     const profilePic = req.file ? site : null;
+
     //create agent
     const agent = await Agent.create({
         name,
