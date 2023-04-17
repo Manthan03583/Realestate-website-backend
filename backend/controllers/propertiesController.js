@@ -9,9 +9,12 @@ const express = require('express')
 //@access   public
 const getProperties = asyncHandler(async(req,res) =>{
 
-    const properties =  await Property.find()
+    const properties =  await Property.find().select('photos name_of_property Location Bedrooms Bathrooms Property_type price property_size')
     
-    // res.status(200).json({ message: 'Get Properties' })
+    if(!properties){
+        res.status(400)
+        throw new Error('Properties not found')
+    }
     res.status(200).json(properties)
 })
 
