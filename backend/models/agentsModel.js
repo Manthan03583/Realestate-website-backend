@@ -30,4 +30,4 @@ const agentSchema = mongoose.Schema({
     }
 )
 
-module.exports = mongoose.model('agent',agentSchema)
+module.exports = mongoose.model(agentSchema)
