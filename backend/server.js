@@ -22,7 +22,10 @@ app.use((req, res, next) =>{
     res.header("Content-Security-Policy", "default-src 'none'; img-src 'self' data:");
     next();
   });
-app.use('/backend/uploads',express.static(path.join(__dirname, 'uploads').split('\\').join('/')))
+  
+app.use('/backend/uploads/agentImages/',express.static('./backend/uploads/agentImages/'))
+app.use('/backend/uploads/propertyImages/',express.static('./backend/uploads/propertyImages/'))
+app.use('/backend/uploads/userImages/',express.static('./backend/uploads/userImages/'))
 
 
 app.use('/api/properties', propertiesRouter)
