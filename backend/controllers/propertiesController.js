@@ -66,6 +66,7 @@ const setProperty = asyncHandler(async(req,res) =>{
 
     const photos = req.files.map(setPath);
     const property = await Property.create({
+        agent: req.decodedAgent.id,
         Property_type: req.body.Property_type,
         Location: req.body.Location,
         developer_name: req.body.developer_name,
@@ -76,8 +77,7 @@ const setProperty = asyncHandler(async(req,res) =>{
         Three_link: req.body.Three_link,
         price: req.body.price,
         photos: photos,
-        property_desc:req.body.property_desc,
-        agent: req.decodedAgent.id
+        property_desc:req.body.property_desc
     })
 
     res.status(200).json(property)
