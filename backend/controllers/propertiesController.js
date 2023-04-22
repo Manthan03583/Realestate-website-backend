@@ -9,7 +9,7 @@ const express = require('express')
 //@access   public
 const getProperties = asyncHandler(async(req,res) =>{
 
-    const properties =  await Property.find().select('photos name_of_property Location Bedrooms Bathrooms Property_type price property_size')
+    const properties =  await Property.find().select('tag photos name_of_property Location Bedrooms Bathrooms Property_type price property_size')
     
     if(!properties){
         res.status(400)
@@ -67,6 +67,7 @@ const setProperty = asyncHandler(async(req,res) =>{
     const photos = req.files.map(setPath);
     const property = await Property.create({
         agent: req.decodedAgent.id,
+        tag:req.body.tag,
         Property_type: req.body.Property_type,
         Location: req.body.Location,
         developer_name: req.body.developer_name,
