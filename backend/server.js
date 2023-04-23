@@ -23,9 +23,9 @@ app.use((req, res, next) =>{
     next();
   });
   
-app.use('/backend/uploads/agentImages/',express.static('./backend/uploads/agentImages/'))
-app.use('/backend/uploads/propertyImages/',express.static('./backend/uploads/propertyImages/'))
-app.use('/backend/uploads/userImages/',express.static('./backend/uploads/userImages/'))
+app.use('/backend/uploads/agentImages/',express.static('agentImages'))
+app.use('/backend/uploads/propertyImages/',express.static('propertyImages'))
+app.use('/backend/uploads/userImages/',express.static('userImages'))
 
 
 app.use('/api/properties', propertiesRouter)
