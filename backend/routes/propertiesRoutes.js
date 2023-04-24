@@ -5,8 +5,8 @@ const protect = require('../middleware/authMiddleware.js')
 const {uploadPropertyImages} = require('../middleware/uploads.js')
 
 router.route('/all-properties').get(getProperties)
-router.route('/').get(protect, getPropertiesOfAgent).post(protect, uploadPropertyImages.array('photos', 100), setProperty)
-
+router.route('/').post(protect, uploadPropertyImages.array('photos', 100), setProperty)
+router.route('/agentProperties/:id').get(getPropertiesOfAgent)
 router.route('/:id').get(getProperty).put(protect, updateProperty).delete(protect, deleteProperty)
 
 module.exports = router

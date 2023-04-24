@@ -35,7 +35,7 @@ const getProperty = asyncHandler(async(req, res)=>{
 //@access   Private
 const getPropertiesOfAgent = asyncHandler(async(req,res) =>{
 
-    const properties = await Property.find({agent: req.decodedAgent.id})
+    const properties = await Property.find({agent: req.params.id})
 
     // res.status(200).json({ message: 'Get Properties' })
     res.status(200).json(properties)
