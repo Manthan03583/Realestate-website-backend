@@ -137,10 +137,15 @@ const agentList = asyncHandler(async(req,res) =>{
     
 })
 
+const getImage = asyncHandler(async(req,res)=>{
+    res.sendFile(path.join(__dirname + '/backend/uploads/agentImages/' + req.params.filename))
+})
+
 module.exports = {
     registeragent,
     loginagent,
     getagent,
     signoutagent,
-    agentList
+    agentList,
+    getImage
 }
