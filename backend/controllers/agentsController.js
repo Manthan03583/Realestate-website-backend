@@ -9,9 +9,9 @@ const path = require('path')
 //@access   Public
 const registeragent = asyncHandler(async(req,res) =>{
 
-    const {name, email, password, address, review} = req.body
+    const {name, email,phone, password, address, review} = req.body
 
-    if(!name || !email || !password ){
+    if(!name || !email || !password || !phone ){
         res.status(400)
         throw new Error('Please add all fields')
     }
@@ -46,6 +46,7 @@ const registeragent = asyncHandler(async(req,res) =>{
     const agent = await Agent.create({
         name,
         email,
+        phone,
         password: hashedPassword,
         profilePic,
         review,
@@ -57,6 +58,7 @@ const registeragent = asyncHandler(async(req,res) =>{
             _id: agent.id,
             name: agent.name,
             email: agent.email,
+            phone: agent.phone,
             profilePic: agent.profilePic,
             review: agent.review,
             address: agent.address,
@@ -98,11 +100,12 @@ const loginagent = asyncHandler(async(req,res) =>{
 // @route   GET /api/agents/me
 //@access   private
 const getagent = asyncHandler(async(req,res) =>{
-    const { _id, name, email, profilePic, review, address} = await Agent.findById(req.decodedAgent.id)
+    const { _id, name, email, phone, profilePic, review, address} = await Agent.findById(req.decodedAgent.id)
 
     res.status(200).json({
         id:_id,
         name,
+        phone,
         email,
         profilePic,
         review,
@@ -124,7 +127,7 @@ const signoutagent = asyncHandler(async(req,res)=>{
 
 const agentList = asyncHandler(async(req,res) =>{
 
-    const agents =  await Agent.find({}, '-password -email')
+    const agents =  await Agent.find({}, '-password -email -phone')
     if(agents){
         res.status(200).json(agents)
     }
