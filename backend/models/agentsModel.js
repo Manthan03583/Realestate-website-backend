@@ -27,6 +27,24 @@ const agentSchema = mongoose.Schema({
         },
         address:{
             type: String
+        },
+        description:{
+            type: String
+        }, 
+        experience:{
+            type: String
+        }, 
+        propertyTypes:{
+            type: String
+        }, 
+        propertyArea:{
+            type: String
+        }, 
+        licenseNo:{
+            type: String
+        }, 
+        website:{
+            type: String
         }
     },
     {
