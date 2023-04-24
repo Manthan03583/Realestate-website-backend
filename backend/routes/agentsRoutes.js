@@ -6,8 +6,8 @@ const {uploadAgentsImage} = require('../middleware/uploads.js')
 
 router.route('/register').post(uploadAgentsImage.single('profilePic'),registeragent)
 router.post('/login',loginagent)
-router.get('/:id',getagent)
 router.get('/signout',protect,signoutagent)
-router.get('/allagents',agentList)
+router.get('/all-agents',agentList)
+router.route('/:id').get(getagent)
 
 module.exports = router;
