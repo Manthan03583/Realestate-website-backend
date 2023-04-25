@@ -108,7 +108,14 @@ const getagent = asyncHandler(async(req,res) =>{
         phone: agent.phone,
         email: agent.email,
         profilePic: agent.profilePic,
-        review: agent.review
+        review: agent.review,
+        address: agent.address,
+        description:agent.description,
+        experience:agent.experience,
+        propertyTypes:agent.propertyTypes,
+        propertyArea:agent.propertyArea,
+        licenseNo:agent.licenseNo,
+        website:agent.website
     })
 })
 
