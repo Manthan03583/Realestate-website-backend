@@ -143,6 +143,5 @@ module.exports = {
     loginagent,
     getagent,
     signoutagent,
-    agentList,
-    getImage
+    agentList
 }
