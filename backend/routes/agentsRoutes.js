@@ -8,7 +8,6 @@ router.route('/register').post(uploadAgentsImage.single('profilePic'),registerag
 router.post('/login',loginagent)
 router.get('/signout',protect,signoutagent)
 router.get('/all-agents',agentList)
-router.route('/agent/:id').get(getagent)
-router.route('/:filename').get(getImage)
+router.route('/:id').get(getagent)
 
 module.exports = router;
