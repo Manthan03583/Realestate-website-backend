@@ -10,6 +10,7 @@
   "author": "Manthan Moharana",
   "license": "MIT",
   "dependencies": {
+    "base64-img": "^1.0.4",
     "bcryptjs": "^2.4.3",
     "colors": "^1.4.0",
     "cors": "^2.8.5",

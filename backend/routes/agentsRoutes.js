@@ -1,6 +1,6 @@
 const express = require('express')
 const router = express.Router()
-const {registeragent, loginagent, getagent, signoutagent, agentList, getImage } = require('../controllers/agentsController.js')
+const {registeragent, loginagent, getagent, signoutagent, agentList } = require('../controllers/agentsController.js')
 const protect = require('../middleware/authMiddleware.js')
 const {uploadAgentsImage} = require('../middleware/uploads.js')
 
