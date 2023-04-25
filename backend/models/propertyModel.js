@@ -49,6 +49,18 @@ const propertySchema = mongoose.Schema(
         },
         property_desc:{
             type: String
+        },
+        Parking:{
+            type: Boolean
+        },
+        Outdoor:{
+            type: Boolean
+        },
+        Ac:{
+            type: Boolean
+        },
+        BuiltYear:{
+            type: String
         }
 
     },{

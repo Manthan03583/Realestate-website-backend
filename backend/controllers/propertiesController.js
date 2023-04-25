@@ -26,7 +26,24 @@ const getProperty = asyncHandler(async(req, res)=>{
         throw new Error('Property not found')
     }
 
-    res.status(200).json(property)
+    res.status(200).json({
+        tag:property.tag,
+        Property_type: property.Property_type,
+        Location: property.Location,
+        developer_name: property.developer_name,
+        name_of_property: property.name_of_property,
+        Bedrooms: property.Bedrooms,
+        Bathrooms: property.Bathrooms,
+        property_size: property.property_size,
+        Three_link: property.Three_link,
+        price: property.price,
+        photos: property.photos,
+        property_desc:property.property_desc,
+        Parking:property.Parking,
+        Outdoor:property.Outdoor,
+        Ac:property.Ac,
+        BuiltYear:property.BuiltYear
+    })
 
 })
 
