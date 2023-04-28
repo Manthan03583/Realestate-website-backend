@@ -14,6 +14,10 @@ const visitRequestSchema = mongoose.Schema({
             type: String,
             required: [true, 'Please add a phone']
         },
+        date:{
+            type: String,
+            required:[true, 'Please add date']
+        },
         message:{
             type:String,
         },
