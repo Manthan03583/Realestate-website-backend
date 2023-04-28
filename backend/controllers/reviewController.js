@@ -5,7 +5,7 @@ const setReview = asyncHandler(async(req,res) =>{
     const {name, agent, message} = req.body
     const date = new Date();
     
-    if(!name || !date || !agent){
+    if(!agent){
         res.status(400)
         throw new Error('Please add all fields')
     }
