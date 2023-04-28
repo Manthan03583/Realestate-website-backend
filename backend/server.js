@@ -7,6 +7,7 @@ const propertiesRouter = require('./routes/propertiesRoutes.js')
 const userRouter = require('./routes/userRoutes.js')
 const agentRouter = require('./routes/agentsRoutes.js')
 const visitRequestRouter = require('./routes/visitRequestRoutes.js')
+const reviewRouter = require('./routes/reviewRoutes.js')
 const {errorHandler} = require('./middleware/errorMiddleware.js')
 const connectDB = require('./config/db.js')
 
@@ -33,6 +34,7 @@ app.use('/api/properties', propertiesRouter)
 app.use('/api/users', userRouter)
 app.use('/api/agents',agentRouter)
 app.use('/api/visitRequests', visitRequestRouter)
+app.use('/api/review', reviewRouter)
 
 app.use(errorHandler)
 
