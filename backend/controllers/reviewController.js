@@ -14,7 +14,7 @@ const setReview = asyncHandler(async(req,res) =>{
 
     const review = Review.create({
         name,
-        todayAtMidnight,
+        date:todayAtMidnight,
         user:req.user.id,
         agent,
         message
@@ -30,7 +30,7 @@ const setReview = asyncHandler(async(req,res) =>{
 })
 
 const getAgentReviews = asyncHandler(async(req,res)=>{
-    const reviews = await Review.find({agent: req.params.id})
+    const reviews = await Review.find({agent: req.params.id}).select("name date user agent message")
 
     if(reviews){
         res.status(200).json(reviews)
