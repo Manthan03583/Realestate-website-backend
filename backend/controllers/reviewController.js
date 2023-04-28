@@ -32,7 +32,7 @@ const setReview = asyncHandler(async(req,res) =>{
 const getAgentReviews = asyncHandler(async(req,res)=>{
     const reviews = await Review.find({agent: req.params.id})
 
-    if(review){
+    if(reviews){
         res.status(200).json(agents)
     }
     else{
