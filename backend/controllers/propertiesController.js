@@ -28,6 +28,7 @@ const getProperty = asyncHandler(async(req, res)=>{
 
     res.status(200).json({
         tag:property.tag,
+        agent:Property.agent,
         Property_type: property.Property_type,
         Location: property.Location,
         developer_name: property.developer_name,

@@ -6,6 +6,7 @@ const port = process.env.port || 8000
 const propertiesRouter = require('./routes/propertiesRoutes.js')
 const userRouter = require('./routes/userRoutes.js')
 const agentRouter = require('./routes/agentsRoutes.js')
+const visitRequestRouter = require('./routes/visitRequestRoutes.js')
 const {errorHandler} = require('./middleware/errorMiddleware.js')
 const connectDB = require('./config/db.js')
 
@@ -31,6 +32,7 @@ app.use('/backend/uploads/userImages/',express.static('./backend/uploads/userIma
 app.use('/api/properties', propertiesRouter)
 app.use('/api/users', userRouter)
 app.use('/api/agents',agentRouter)
+app.use('/api/visitRequests', visitRequestRouter)
 
 app.use(errorHandler)
 
