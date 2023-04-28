@@ -13,7 +13,7 @@ const setReview = asyncHandler(async(req,res) =>{
     const todayAtMidnight = new Date(date.setHours(0, 0, 0, 0));
 
     const review = Review.create({
-        name,
+        name: req.user.name,
         date:todayAtMidnight,
         user:req.user.id,
         agent,
